@@ -1,0 +1,11 @@
+
+.appointment-list{
+    background-image: url("../src/assets/marcelo-leal-6pcGTJDuf6M-unsplash.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.login{
+    height: 100%;
+}
