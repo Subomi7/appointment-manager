@@ -52,7 +52,7 @@ const AppointmentList = () => {
 
   return (
     <div className='p-2'>
-      <h2 className='mb-4'>Appointments</h2>
+      <h2 className='mb-4 text-white'>Appointments</h2>
 
       <Row bg-body-tertiary className='mb-4'>
         <Col md={6}>
@@ -89,9 +89,9 @@ const AppointmentList = () => {
         ) : (
           <>
             {filteredAppointments.map((appointment) => (
-              <Col key={appointment._id} md={6} lg={4} className='mb-4'>
+              <Col key={appointment._id} md={6} lg={4} className='mb-4 cursor-pointer'>
                 <Card
-                  className='h-100 cursor-pointer'
+                  className='h-100 cursor-pointer card1'
                   onClick={() => navigate(`/appointment/${appointment._id}`)}
                 >
                   <Card.Header className='d-flex justify-content-between align-items-center'>
@@ -104,7 +104,7 @@ const AppointmentList = () => {
                           ? 'success'
                           : appointment.status === 'Cancelled'
                           ? 'danger'
-                          : 'info'
+                          : 'warning'
                       }
                     >
                       {appointment.status}

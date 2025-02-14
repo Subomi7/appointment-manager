@@ -7,10 +7,7 @@ const NavBar = () => {
 
   return (
     <div>
-        <main className='container'>
-
-        </main>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar bg='dark' variant='dark' expand='lg' className='position-sticky'>
         <Container>
           <Navbar.Brand href='/'>Appointment Manager</Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />

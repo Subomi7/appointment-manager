@@ -75,9 +75,9 @@ const AppointmentForm = () => {
 
   return (
     <div>
-      <h2>{isEditMode ? 'Edit Appointment' : 'Create New Appointment'}</h2>
+      <h2 className='text-white'>{isEditMode ? 'Edit Appointment' : 'Create New Appointment'}</h2>
       {error && <Alert variant='danger'>{error}</Alert>}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className='appointment-form'>
         <Form.Group className='mb-3'>
           <Form.Label>Patient Name</Form.Label>
           <Form.Control

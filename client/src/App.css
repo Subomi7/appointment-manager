@@ -1,11 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.appointment-list{
-    background-image: url("../src/assets/marcelo-leal-6pcGTJDuf6M-unsplash.jpg");
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+* {
+  font-family: 'Montserrat', serif;
 }
-.login{
-    height: 100%;
+.appointment-list {
+  background-image: url('../src/assets/marcelo-leal-6pcGTJDuf6M-unsplash.jpg');
+  min-height: 100vh;
+  height: 100 100 100 100;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.login {
+  height: 100%;
+}
+
+.appointment-form {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.card1 {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.card1:hover {
+  border: 1px solid black;
+  transform: scale(1.1);
+}
+
+.card2{
+    transition: none;
+}
+
+.card2{
+    border-radius: 6px;
+    padding: 2rem;
+}
+
+.return-button{
+    font-size: 13px;
 }
