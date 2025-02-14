@@ -42,11 +42,14 @@ const AppointmentDetails = () => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this appointment?')) {
       try {
-        await axios.delete(`https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`, {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        });
+        await axios.delete(
+          `https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
+        );
         navigate('/');
       } catch (err) {
         setError('Failed to delete appointment');
@@ -128,15 +131,13 @@ const AppointmentDetails = () => {
                       </h3>
                     </Col>
                     <Col xs='auto'>
-                      {auth.isAdmin && (
-                        <Button
-                          variant='outline-primary'
-                          className='me-2'
-                          onClick={() => navigate(`/edit/${appointment._id}`)}
-                        >
-                          Edit
-                        </Button>
-                      )}
+                      <Button
+                        variant='outline-primary'
+                        className='me-2'
+                        onClick={() => navigate(`/edit/${appointment._id}`)}
+                      >
+                        Edit
+                      </Button>
 
                       {auth.isAdmin && (
                         <Button variant='outline-danger' onClick={handleDelete}>
@@ -199,5 +200,3 @@ const AppointmentDetails = () => {
 };
 
 export default AppointmentDetails;
-
-

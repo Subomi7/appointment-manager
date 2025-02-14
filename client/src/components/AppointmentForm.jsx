@@ -33,7 +33,7 @@ const AppointmentForm = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost:3000/api/appointments/${id}`,
+        `https://appointment-manager-4t9u.onrender.com/appointments/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` }, // Attach token
         }
