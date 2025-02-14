@@ -8,6 +8,8 @@ const appointmentSchema = new Schema(
     specialty: { type: String, required: true },
     date: { type: Date, required: true },
     location: { type: String, required: true },
+    latitude: {type: Number},
+    longitude: {type: Number},
     status: {
       type: String,
       enum: ['Scheduled', 'Awaiting', 'Cancelled'],
