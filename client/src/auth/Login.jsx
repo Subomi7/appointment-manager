@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
-import { Alert, Button, Card, Container, Form } from 'react-bootstrap';
+import { Alert, Button, Card, Container, Form, Spinner } from 'react-bootstrap';
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
     try {
       const response = await axios.post(
         'https://appointment-manager-4t9u.onrender.com/api/appointments/login',
@@ -22,11 +26,14 @@ const Login = () => {
     } catch (err) {
       setError('Invalid credentials');
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   return (
     <div className='login'>
-      <Container className='mt-5 p-5'>
+      <Container className='mt-5 p-2'>
         <Card className='mx-auto p-4' style={{ maxWidth: '400px' }}>
           <Card.Header>
             <Card.Title>Login</Card.Title>
@@ -43,6 +50,7 @@ const Login = () => {
                     setFormData({ ...formData, username: e.target.value })
                   }
                   required
+                  disabled={isLoading}
                 />
               </Form.Group>
               <Form.Group className='mb-3'>
@@ -54,10 +62,30 @@ const Login = () => {
                     setFormData({ ...formData, password: e.target.value })
                   }
                   required
+                  disabled={isLoading}
                 />
               </Form.Group>
-              <Button type='submit' variant='primary'>
-                Login
+              <Button
+                type='submit'
+                variant='primary'
+                className='w-100'
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Spinner
+                      as='span'
+                      animation='border'
+                      size='sm'
+                      role='status'
+                      aria-hidden='true'
+                      className='me-2'
+                    />
+                    Logging in...
+                  </>
+                ) : (
+                  'Login'
+                )}
               </Button>
             </Form>
           </Card.Body>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button, Alert, Container, Card } from 'react-bootstrap';
+import { Form, Button, Alert, Container, Card, Spinner } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -12,16 +12,19 @@ const Signup = () => {
     adminCode: '',
   });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setIsLoading(false);
       return;
     }
 
@@ -39,6 +42,8 @@ const Signup = () => {
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,6 +68,7 @@ const Signup = () => {
                 value={formData.username}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </Form.Group>
 
@@ -74,6 +80,7 @@ const Signup = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </Form.Group>
 
@@ -85,6 +92,7 @@ const Signup = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </Form.Group>
 
@@ -96,14 +104,34 @@ const Signup = () => {
                 value={formData.adminCode}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
               <Form.Text className='text-muted'>
                 Required for admin registration
               </Form.Text>
             </Form.Group>
 
-            <Button type='submit' variant='primary' className='w-100'>
-              Sign Up
+            <Button
+              type='submit'
+              variant='primary'
+              className='w-100'
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Spinner
+                    as='span'
+                    animation='border'
+                    size='sm'
+                    role='status'
+                    aria-hidden='true'
+                    className='me-2'
+                  />
+                  Signing up...
+                </>
+              ) : (
+                'Sign Up'
+              )}
             </Button>
 
             <div className='text-center mt-3'>

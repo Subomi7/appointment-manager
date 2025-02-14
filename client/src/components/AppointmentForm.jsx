@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form, Spinner } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const defaultFormData = {
@@ -19,12 +19,12 @@ const AppointmentForm = () => {
   const isEditMode = id && id !== 'new';
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState(defaultFormData);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isEditMode) {
       fetchAppointment();
     } else {
-      // Ensure we clear the form if switching to create mode.
       setFormData(defaultFormData);
     }
   }, [isEditMode]);
@@ -35,7 +35,7 @@ const AppointmentForm = () => {
       const response = await axios.get(
         `https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`,
         {
-          headers: { Authorization: `Bearer ${token}` }, // Attach token
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const appointment = response.data;
@@ -50,22 +50,30 @@ const AppointmentForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Fixed: preventDefault not preventDefaults
+    e.preventDefault();
+    setIsLoading(true);
     try {
-      const token = localStorage.getItem('token'); // Get token
+      const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
       if (isEditMode) {
         await axios.put(
           `https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`,
-          formData, { headers }
+          formData,
+          { headers }
         );
       } else {
-        await axios.post('https://appointment-manager-4t9u.onrender.com/api/appointments', formData, { headers });
+        await axios.post(
+          'https://appointment-manager-4t9u.onrender.com/api/appointments',
+          formData,
+          { headers }
+        );
       }
       navigate('/');
     } catch (error) {
       setError('Failed to save appointment');
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,7 +83,9 @@ const AppointmentForm = () => {
 
   return (
     <div>
-      <h2 className='text-white'>{isEditMode ? 'Edit Appointment' : 'Create New Appointment'}</h2>
+      <h2 className='text-white'>
+        {isEditMode ? 'Edit Appointment' : 'Create New Appointment'}
+      </h2>
       {error && <Alert variant='danger'>{error}</Alert>}
       <Form onSubmit={handleSubmit} className='appointment-form'>
         <Form.Group className='mb-3'>
@@ -150,8 +160,22 @@ const AppointmentForm = () => {
             rows={3}
           />
         </Form.Group>
-        <Button variant='primary' type='submit'>
-          {isEditMode ? 'Update' : 'Create'} Appointment
+        <Button variant='primary' type='submit' disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Spinner
+                as='span'
+                animation='border'
+                size='sm'
+                role='status'
+                aria-hidden='true'
+                className='me-2'
+              />
+              {isEditMode ? 'Updating...' : 'Creating...'}
+            </>
+          ) : (
+            <>{isEditMode ? 'Update' : 'Create'} Appointment</>
+          )}
         </Button>
       </Form>
     </div>
