@@ -19,7 +19,7 @@ const AppointmentList = () => {
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:3000/api/appointments'
+        'https://appointment-manager-4t9u.onrender.com/api/appointments'
       );
       setAppointments(response.data);
       setLoading(false);

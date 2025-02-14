@@ -28,7 +28,7 @@ const AppointmentDetails = () => {
   const fetchAppointment = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/appointments/${id}`
+        `https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`
       );
       setAppointment(response.data);
       setLoading(false);
@@ -42,7 +42,7 @@ const AppointmentDetails = () => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this appointment?')) {
       try {
-        await axios.delete(`http://localhost:3000/api/appointments/${id}`, {
+        await axios.delete(`https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`, {
           headers: {
             Authorization: `Bearer ${auth.token}`,
           },

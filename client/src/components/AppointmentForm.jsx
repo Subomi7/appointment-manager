@@ -56,11 +56,11 @@ const AppointmentForm = () => {
       const headers = { Authorization: `Bearer ${token}` };
       if (isEditMode) {
         await axios.put(
-          `http://localhost:3000/api/appointments/${id}`,
+          `https://appointment-manager-4t9u.onrender.com/api/appointments/${id}`,
           formData, { headers }
         );
       } else {
-        await axios.post('http://localhost:3000/api/appointments', formData, { headers });
+        await axios.post('https://appointment-manager-4t9u.onrender.com/api/appointments', formData, { headers });
       }
       navigate('/');
     } catch (error) {
