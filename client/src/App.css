@@ -31,15 +31,28 @@
   transform: scale(1.1);
 }
 
-.card2{
-    transition: none;
+.card2 {
+  transition: none;
 }
 
-.card2{
-    border-radius: 6px;
-    padding: 2rem;
+.card2 {
+  border-radius: 6px;
+  padding: 2rem;
 }
 
-.return-button{
-    font-size: 13px;
+.return-button {
+  font-size: 13px;
+}
+
+@media (max-width: 500px) {
+  .card-badge {
+    margin: 3px 0 8px 0;
+  }
+
+  .card2{
+    margin: 0;
+    min-width: 300px;
+    width: 100%;
+    padding: 1rem;
+  }
 }
