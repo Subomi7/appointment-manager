@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/appointments/login',
+        'https://appointment-manager-4t9u.onrender.com/api/appointments/login',
         formData
       );
       login(response.data.token, response.data.isAdmin);

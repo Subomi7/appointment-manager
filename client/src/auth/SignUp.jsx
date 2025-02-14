@@ -27,7 +27,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/appointments/signup',
+        'https://appointment-manager-4t9u.onrender.com/api/appointments/signup',
         {
           username: formData.username,
           password: formData.password,
